@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Desafio Tarefas
 
-## Getting Started
+Gerenciador de tarefas feito com Next.js e tRPC. Permite listar, criar, editar e excluir tarefas com título, descrição e prioridade.
 
-First, run the development server:
+## Como executar
+
+É preciso ter o [Node.js](https://nodejs.org) 18.18 ou superior e o npm. O projeto não usa banco de dados nem variáveis de ambiente.
+
+1. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+2. Inicie o servidor de desenvolvimento:
+
+   ```bash
+   npm run dev
+   ```
+
+3. Abra [http://localhost:3000](http://localhost:3000) no navegador.
+
+Para executar a versão de produção:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para verificar o código com o ESLint, use `npm run lint`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Como o sistema funciona
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+A tela inicial lista as tarefas, da mais recente para a mais antiga. A partir dela, é possível:
 
-## Learn More
+- **Ver as tarefas:** a lista carrega 10 tarefas por vez, e as próximas aparecem conforme a página é rolada.
+- **Criar ou editar:** o mesmo formulário atende os dois casos. O título é obrigatório (até 100 caracteres), a descrição é opcional (até 500) e a prioridade pode ser baixa, média ou alta.
+- **Excluir:** a exclusão pede confirmação antes de remover a tarefa.
 
-To learn more about Next.js, take a look at the following resources:
+Front-end e back-end ficam no mesmo projeto. As páginas e os componentes React chamam uma API tRPC, servida em `/api/trpc`, e o TanStack Query cuida do cache no navegador. Um único schema Zod valida os dados no formulário e na API.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**As tarefas ficam apenas na memória do servidor.** Ao iniciar, o sistema cria 30 tarefas de exemplo, e todas as alterações se perdem quando o servidor é reiniciado.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estrutura
 
-## Deploy on Vercel
+```text
+src/
+├── app/      # páginas, componentes e rota da API
+├── lib/      # schema de validação e prioridades, usados no cliente e no servidor
+└── server/   # routers tRPC e armazenamento em memória
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+As tecnologias usadas, os motivos de cada escolha e as limitações conhecidas estão em [docs/decisoes.md](docs/decisoes.md).

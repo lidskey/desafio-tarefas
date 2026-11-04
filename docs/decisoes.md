@@ -80,4 +80,4 @@ A maior limitação é a persistência: as tarefas se perdem ao reiniciar o serv
 - **Mensagem na URL:** `?ok=` reaparece ao recarregar a página e exibe qualquer texto colocado no parâmetro.
 - **Erros de validação:** a API expõe `zodIssues`, mas o formulário não os usa e mostra só a mensagem geral.
 - **URL do servidor:** `getUrl` fixa `http://localhost:3000` para chamadas fora do navegador.
-- **Projeto:** não há testes automatizados, e o README ainda é o padrão do Create Next App.
+- **Projeto:** não há testes automatizados.
