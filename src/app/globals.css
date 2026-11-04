@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f4ead5;
   --foreground: #171717;
+  --surface: #ffffff;
+
+  /* Paleta do projeto */
+  --c1: #e94e77; /* rosa vibrante - ação primária */
+  --c2: #d68189; /* rosa empoeirado - acento secundário */
+  --c3: #c6a49a; /* taupe - bordas e detalhes neutros */
+  --c4: #c6e5d9; /* verde menta - superfícies suaves */
+  --c5: #f4ead5; /* creme - fundo da página */
+
+  /* Todas as 5 cores acima têm baixo contraste com texto branco;
+     estas são versões escurecidas para uso como texto/ícone sobre fundo claro. */
+  --c1-ink: color-mix(in srgb, var(--c1) 70%, black 30%);
+  --c2-ink: color-mix(in srgb, var(--c2) 65%, black 35%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-color1: var(--c1);
+  --color-color2: var(--c2);
+  --color-color3: var(--c3);
+  --color-color4: var(--c4);
+  --color-color5: var(--c5);
+  --color-color1-ink: var(--c1-ink);
+  --color-color2-ink: var(--c2-ink);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1b1613;
+    --foreground: #f4ead5;
+    --surface: #241f1b;
+
+    --c3: #4a3f3a;
+    --c4: #23382f;
+    --c5: #211c18;
+    --c1-ink: color-mix(in srgb, var(--c1) 80%, white 20%);
+    --c2-ink: color-mix(in srgb, var(--c2) 75%, white 25%);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  border-color: var(--color-color3);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-color1-ink);
+  outline-offset: 2px;
 }
